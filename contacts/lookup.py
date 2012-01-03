@@ -51,7 +51,7 @@ class Query:
                          "models": "contact_models"}
         include_fields = []
         if include_data is None:
-            include_data = include_types["contacts"]
+            include_data = "contacts"
         if not isinstance(include_data, list):
             include_data = [include_data]
         include_data = [d.lower() for d in include_data]
