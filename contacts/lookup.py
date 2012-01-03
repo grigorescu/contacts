@@ -4,14 +4,14 @@ __author__ = 'vladg'
 import getpass
 import requests
 import json
-from contacts import config
+import contacts.config
 
 class Query:
 
-    CDB_PROD = config.prod
-    CDB_DEV = config.dev
-    CDB_TEST = config.test
-    PATH = config.path
+    CDB_PROD = contacts.config.prod
+    CDB_DEV = contacts.config.dev
+    CDB_TEST = contacts.config.test
+    PATH = contacts.config.path
 
     def __init__(self, username=None, password=None, environment="Prod",
                  ssl_verify=True):
