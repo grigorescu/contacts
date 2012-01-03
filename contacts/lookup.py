@@ -1,15 +1,17 @@
+
 __author__ = 'vladg'
 
 import getpass
 import requests
 import json
-import secret_data # I'd rather not share the details on GitHub...
+from contacts import config
 
 class Query:
 
-    CDB_PROD = secret_data.prod
-    CDB_TEST = secret_data.test
-    PATH = secret_data.path
+    CDB_PROD = config.prod
+    CDB_DEV = config.dev
+    CDB_TEST = config.test
+    PATH = config.path
 
     def __init__(self, username=None, password=None, environment="Prod",
                  ssl_verify=True):
@@ -34,7 +36,7 @@ class Query:
         return self.request.post(url=self.url, data=json.dumps([data]))
 
     def _build_param_list(self, search_value, search_field,
-                          search_operation, include_data=["contacts"]):
+                          search_operation, include_data=None):
         """Builds a CDB-compatible list of parameters, given a value,
         a field, and an optional operation."""
 
@@ -48,6 +50,8 @@ class Query:
                          "permissions": "model_permissions",
                          "models": "contact_models"}
         include_fields = []
+        if include_data is None:
+            include_data = include_types["contacts"]
         if not isinstance(include_data, list):
             include_data = [include_data]
         include_data = [d.lower() for d in include_data]
